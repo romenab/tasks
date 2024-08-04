@@ -4,11 +4,21 @@ function addition($case)
     $expression = explode("+", $case);
     $first = $expression[0];
     $second = $expression[1];
+    $lengthFirst = strlen($first);
     $lengthSecond = strlen($second);
-
-    echo " " . $first . PHP_EOL;
+    if ($lengthFirst < $lengthSecond + 1) {
+        echo str_repeat(" ", $lengthSecond + 1 - $lengthFirst);
+    }
+    echo $first . PHP_EOL;
+    if ($lengthFirst > $lengthSecond + 1) {
+        echo str_repeat(" ", $lengthFirst - $lengthSecond - 1);
+    }
     echo "+" . $second . PHP_EOL;
-    echo str_repeat("-", $lengthSecond + 1);
+    if ($lengthFirst < $lengthSecond + 1) {
+        echo str_repeat("-", $lengthSecond + 1);
+    } else {
+        echo str_repeat("-", $lengthFirst);
+    }
     echo PHP_EOL;
 
     $sum = (int)$first + (int)$second;
@@ -27,19 +37,30 @@ function subtraction($case)
     $expression = explode("-", $case);
     $first = $expression[0];
     $second = $expression[1];
+    $lengthFirst = strlen($first);
     $lengthSecond = strlen($second);
-
-    echo " " . $first . PHP_EOL;
+    if ($lengthFirst < $lengthSecond + 1) {
+        echo str_repeat(" ", $lengthSecond + 1 - $lengthFirst);
+    }
+    echo $first . PHP_EOL;
+    if ($lengthFirst > $lengthSecond + 1) {
+        echo str_repeat(" ", $lengthFirst - $lengthSecond - 1);
+    }
     echo "-" . $second . PHP_EOL;
-
-    echo str_repeat("-", $lengthSecond + 1);
+    if ($lengthFirst < $lengthSecond + 1) {
+        echo str_repeat("-", $lengthSecond + 1);
+    } else {
+        echo str_repeat("-", $lengthFirst);
+    }
     echo PHP_EOL;
 
     $difference = (int)$first - (int)$second;
     $length = strlen((string)$difference);
+
     for ($j = $length; $j < $lengthSecond + 1; $j++) {
         echo " ";
     }
+
     echo $difference . PHP_EOL;
     echo PHP_EOL;
 }
