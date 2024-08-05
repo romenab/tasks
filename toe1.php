@@ -1,13 +1,13 @@
 <?php
 
-function elementCount($case)
+function elementCount(string $case): array
 {
     $xCount = substr_count($case, 'X');
     $oCount = substr_count($case, 'O');
     return [$xCount, $oCount];
 }
 
-function winner($case)
+function winner(string $case): array
 {
     $element = str_split($case);
     $winnerCombinations = [
@@ -29,7 +29,7 @@ function winner($case)
     return [$xWin, $oWin];
 }
 
-function isValid($xCount, $oCount, $xWin, $oWin)
+function isValid(int $xCount, int $oCount, int $xWin, int $oWin): bool
 {
     if ($xCount < $oCount) {
         return false;
@@ -46,15 +46,27 @@ function isValid($xCount, $oCount, $xWin, $oWin)
     return true;
 }
 
-$testCases = 2;
-$case = ["X.OOO.XXX", "O.XXX.OOO"];
 
+echo "Enter the number of test cases: ";
+$testCases = (int)trim(fgets(STDIN));
+$cases = [];
 for ($i = 0; $i < $testCases; $i++) {
-    $count = elementCount($case[$i]);
+    echo "Enter test case " . ($i + 1) . ": ";
+    $input = trim(fgets(STDIN));
+    if (strlen($input) === 9 && (preg_match('/^[XO.]+$/', $input))) {
+        $cases[] = $input;
+    } else {
+        echo "Invalid input. Each case must be exactly 9 characters and contain only '.', 'X' or 'O'." . PHP_EOL;
+        $i--;
+    }
+}
+
+foreach ($cases as $case) {
+    $count = elementCount($case);
     $xCount = $count[0];
     $oCount = $count[1];
 
-    $winner = winner($case[$i]);
+    $winner = winner($case);
     $xWin = $winner[0];
     $oWin = $winner[1];
 
@@ -66,3 +78,4 @@ for ($i = 0; $i < $testCases; $i++) {
         echo "no" . PHP_EOL;
     }
 }
+
